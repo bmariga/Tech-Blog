@@ -1,3 +1,6 @@
+* {
+    box-sizing: border-box;
+}
 body {
     color: #333;
 }
@@ -6,7 +9,7 @@ img {
 }
 main {
     padding: 10px;
-    max-width: 700px;
+    max-width: 900px;
     margin: 0 auto;
 }
 header {
@@ -15,6 +18,7 @@ header {
     margin-bottom: 50px;
     align-items: center;
     margin-top: 20px;
+    position: top;
 }
 header a {
     text-decoration: none;
@@ -53,4 +57,32 @@ div.post p.info a.author {
 div.post p.content {
     margin: 10px 0;
     line-height: 1.4rem;
+}
+
+/* Login & Register Page */
+form.login, form.register {
+    max-width: 60%;
+    margin: 100px auto 0;
+    height: 60vh;
+    text-align: center;
+}
+input {
+    display: block;
+    margin-bottom: 10px;
+    width: 100%;
+    padding: 10px;
+    border: 0;
+    border-bottom: 1px solid #ccc;  
+}
+button {
+    width: 100%;
+    margin-top: 5px;
+    padding: 10px;
+    border: 15px;
+
+}
+button:hover {
+    background-color: rgb(92,92,92);
+    color: #fff;
+    cursor: pointer;
 }
