@@ -1,4 +1,6 @@
-export default function Post() {
+import { formatIS09075, formatISO9075 } from "date-fns";
+
+export default function Post({ title, summary, content, cover, createdAt }) {
   return (
     <div className="post">
       <div className="image">
@@ -8,20 +10,14 @@ export default function Post() {
         />
       </div>
       <div className="texts">
-        <h2>
-          EcoFlow teases full-house battery backup coming later this year.
-        </h2>
+        <h2>{title}</h2>
         <p className="info">
           <a href="" className="author">
             Mariga Nyaribo
           </a>
-          <time>2023-11-20 10:25</time>
+          <time>{formatISO9075(new Date(createdAt))}</time>
         </p>
-        <p className="content">
-          Today at its special launch event, home backup power giant EcoFlow
-          launched a flurry of new products, including a “Whole-Home Backup
-          Power Solution.
-        </p>
+        <p className="summary">{summary}</p>
       </div>
     </div>
   );
