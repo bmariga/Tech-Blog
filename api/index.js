@@ -17,6 +17,7 @@ const secret = "8jkf9sD&23l1@%sG9zH0Yp$w7cXqBhU87";
 app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
 app.use(express.json());
 app.use(cookieParser());
+app.use("/uploads", express.static(__dirname + "/uploads"));
 
 mongoose.connect(
   "mongodb+srv://marigabn:C7zLS6oxhvyZ8X61@cluster0.ywqrj62.mongodb.net/"
@@ -118,8 +119,48 @@ app.post("/post", uploadMiddleware.single("file"), async (req, res) => {
   });
 });
 
+app.put("/post", uploadMiddleware.single("file"), async (req, res) => {
+  if (req.file) {
+    const { originalname, path } = req.file;
+    const parts = originalname.split(".");
+    const ext = parts[parts.length - 1];
+    newPath = path + "." + ext;
+    fs.renameSync(path, newPath);
+  }
+
+  const { token } = req.cookies;
+  jwt.verify(token, secret, {}, async (err, info) => {
+    if (err) throw err;
+    const { id, title, summary, content } = req.body;
+    const postDoc = await Post.findById(id);
+    const isAuthor = JSON.stringify(postDoc.author) === JSON.stringify(info.id);
+    if (!isAuthor) {
+      return res.status(400).json("You are not the author");
+    }
+
+    await postDoc.update({
+      title,
+      summary,
+      content,
+      cover: newPath ? newPath : postDoc.cover,
+    });
+    res.json(postDoc);
+  });
+});
+
 app.get("/post", async (req, res) => {
-  res.json(await Post.find());
+  res.json(
+    await Post.find()
+      .populate("author", ["username"])
+      .sort({ createdAt: -1 })
+      .limit(15)
+  );
+});
+
+app.get("/post/:id", async (req, res) => {
+  const { id } = req.params;
+  const postDoc = await Post.findById(id).populate("author", ["username"]);
+  res.json(postDoc);
 });
 
 app.listen(4000);
