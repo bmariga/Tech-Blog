@@ -1,19 +1,28 @@
 import { formatIS09075, formatISO9075 } from "date-fns";
-
-export default function Post({ title, summary, content, cover, createdAt }) {
+import { Link } from "react-router-dom";
+export default function Post({
+  _id,
+  title,
+  summary,
+  content,
+  cover,
+  createdAt,
+  author,
+}) {
   return (
     <div className="post">
       <div className="image">
-        <img
-          src="https://techcrunch.com/wp-content/uploads/2022/12/lawnmower-Large.jpeg?w=1390&crop=1"
-          alt=""
-        />
+        <Link to={`/post/${_id}`}>
+          <img src={"http://localhost:4000/" + cover} alt="" />
+        </Link>
       </div>
       <div className="texts">
-        <h2>{title}</h2>
+        <Link to={`/post/${_id}`}>
+          <h2>{title}</h2>{" "}
+        </Link>
         <p className="info">
           <a href="" className="author">
-            Mariga Nyaribo
+            {author.username}
           </a>
           <time>{formatISO9075(new Date(createdAt))}</time>
         </p>
