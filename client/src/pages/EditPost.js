@@ -13,13 +13,16 @@ export default function EditPost() {
   const [redirect, setRedirect] = useState(false);
 
   useEffect(() => {
-    fetch("http://localhost:4000/post/" + id).then((response) => {
-      response.json().then((postInfo) => {
-        setTitle(postInfo.title);
-        setSummary(postInfo.summary);
-        setContent(postInfo.content);
-      });
-    });
+    fetch("http://localhost:4000/post/" + id).then(
+      (response) => {
+        response.json().then((postInfo) => {
+          setTitle(postInfo.title);
+          setSummary(postInfo.summary);
+          setContent(postInfo.content);
+        });
+      },
+      [id]
+    );
   }, []);
 
   async function updatePost(ev) {
