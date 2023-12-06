@@ -14,7 +14,13 @@ const fs = require("fs");
 const salt = bcrypt.genSaltSync(10);
 const secret = "8jkf9sD&23l1@%sG9zH0Yp$w7cXqBhU87";
 
-app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
+app.use(
+  cors({
+    credentials: true,
+    methods: ["GET", "POST"],
+    origin: true,
+  })
+);
 app.use(express.json());
 app.use(cookieParser());
 app.use("/uploads", express.static(__dirname + "/uploads"));
