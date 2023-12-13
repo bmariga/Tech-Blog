@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import { UserContext } from "./UserContext";
+import logoImage from "./images/logo1.png";
 
 export default function Header() {
   const { setUserInfo, userInfo } = useContext(UserContext);
@@ -27,8 +28,7 @@ export default function Header() {
   return (
     <header>
       <Link to="/" className="logo">
-        {" "}
-        ALXTech
+        <img src={logoImage} alt="ALXTech Logo" />
       </Link>
       <nav>
         {username && (

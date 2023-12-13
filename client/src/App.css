@@ -27,9 +27,9 @@ header a {
     text-decoration: none;
     color: #000;
 }
-header a.logo {
-    font-weight: bold;
-    font-size: 1.4rem;
+header a.logo img {
+    height: 50px;
+    width: 50px;
 }
 header nav {
     display: flex;

@@ -17,7 +17,7 @@ const secret = "8jkf9sD&23l1@%sG9zH0Yp$w7cXqBhU87";
 app.use(
   cors({
     credentials: true,
-    methods: ["GET", "POST"],
+    methods: ["GET", "POST", "PUT"],
     origin: "http://localhost:3000",
   })
 );
